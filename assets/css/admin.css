@@ -1,0 +1,58 @@
+.er-builder-wrapper {
+    background: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+}
+
+.er-field-row {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.er-field-header {
+    background: #f1f1f1;
+    padding: 10px;
+    border-bottom: 1px solid #ccd0d4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.er-field-header strong {
+    flex-grow: 1;
+}
+
+.er-field-body {
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.er-col {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.er-col.er-col-small {
+    flex: 0 0 80px;
+    align-items: center;
+}
+
+.er-col label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.er-col input[type="text"],
+.er-col select {
+    width: 100%;
+}
+
+.er-col.hidden {
+    display: none;
+}

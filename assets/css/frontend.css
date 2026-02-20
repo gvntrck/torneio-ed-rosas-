@@ -1,0 +1,54 @@
+.er-frontend-form-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #e1e1e1;
+}
+
+.er-form-group {
+    margin-bottom: 15px;
+}
+
+.er-field-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.er-field-label .required {
+    color: #e2401c;
+}
+
+.er-field-input input[type="text"],
+.er-field-input input[type="email"],
+.er-field-input input[type="tel"],
+.er-field-input input[type="number"],
+.er-field-input select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.er-field-input .er-radio-label,
+.er-field-input .er-checkbox-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: normal;
+}
+
+.er-field-input .er-radio-label input,
+.er-field-input .er-checkbox-label input {
+    margin-right: 8px;
+}
+
+#er-total-preview-wrap {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+    font-size: 1.1em;
+    color: #000;
+}
