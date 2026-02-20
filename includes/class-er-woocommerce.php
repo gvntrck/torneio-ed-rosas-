@@ -19,6 +19,9 @@ class ER_WooCommerce
 
         // 4. Salvar as opções nos metadados do item do pedido
         add_action('woocommerce_checkout_create_order_line_item', array($this, 'create_order_line_item'), 10, 4);
+
+        // 5. Redirecionar direto para o checkout caso seja um form de torneio
+        add_filter('woocommerce_add_to_cart_redirect', array($this, 'redirect_to_checkout'), 99, 1);
     }
 
     public function add_cart_item_data($cart_item_data, $product_id, $variation_id)
@@ -153,5 +156,13 @@ class ER_WooCommerce
                 $item->add_meta_data($key, $value);
             }
         }
+    }
+
+    public function redirect_to_checkout($url)
+    {
+        if (isset($_POST['er_redirect_checkout']) && $_POST['er_redirect_checkout'] == '1') {
+            return wc_get_checkout_url();
+        }
+        return $url;
     }
 }

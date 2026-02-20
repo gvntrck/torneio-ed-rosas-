@@ -3,7 +3,7 @@
  * Plugin Name: Torneio Ed Rosas
  * Plugin URI: https://example.com/
  * Description: Plugin para criação de formulários de inscrição de torneios de xadrez integrados com o WooCommerce.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Ed Rosas
  * Author URI: https://example.com/
  * Text Domain: torneio-ed-rosas
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('ER_TORNEIOS_VERSION', '1.0.2');
+define('ER_TORNEIOS_VERSION', '1.0.3');
 define('ER_TORNEIOS_PLUGIN_FILE', __FILE__);
 define('ER_TORNEIOS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('ER_TORNEIOS_PLUGIN_URL', plugin_dir_url(__FILE__));

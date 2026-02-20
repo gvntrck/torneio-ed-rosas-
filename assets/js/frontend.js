@@ -6,8 +6,11 @@ jQuery(document).ready(function ($) {
     if ($wooForm.length > 0) {
         var $formContainer = $('.er-frontend-form-container');
         // Prepend to form, just before the add to cart button if possible
-        if ($wooForm.find('.single_add_to_cart_button').length > 0) {
-            $formContainer.insertBefore($wooForm.find('.single_add_to_cart_button'));
+        var $btn = $wooForm.find('.single_add_to_cart_button');
+        if ($btn.length > 0) {
+            $formContainer.insertBefore($btn);
+            // Change button text to Pagar
+            $btn.text('Pagar').html('Pagar');
         } else {
             $wooForm.append($formContainer);
         }
