@@ -73,65 +73,67 @@ class ER_Metabox
                 array('id' => uniqid(), 'label' => 'Política de Direito de Uso de Imagem', 'type' => 'consent', 'required' => true, 'options' => 'Aceito a Política de Direito de Uso de Imagem'),
                 array('id' => uniqid(), 'label' => 'Termo de Consentimento LGPD', 'type' => 'consent', 'required' => true, 'options' => 'Aceito o Termo de Consentimento LGPD'),
             );
-            $fields_json = wp_json_encode($default_fields);
+            $fields_json = wp_json_encode($default_fields, JSON_UNESCAPED_UNICODE);
         }
 
         ?>
-                <div class="er-builder-wrapper">
-                    <p class="description">
-                        Use este construtor para editar os campos do formulário para inscrições do torneio.<br>
-                        Para campos que alteram o preço do produto (como opções de categoria Extra/Meia), use o formato "Opção::Preco". Exemplo: <code>BLITZ::50.00, OPEN::150.00</code>. Decimais devem ser com ponto.
-                    </p>
-            
-                    <textarea name="er_form_fields" id="er_form_fields" style="display:none;"><?php echo esc_textarea($fields_json); ?></textarea>
+        <div class="er-builder-wrapper">
+            <p class="description">
+                Use este construtor para editar os campos do formulário para inscrições do torneio.<br>
+                Para campos que alteram o preço do produto (como opções de categoria Extra/Meia), use o formato "Opção::Preco".
+                Exemplo: <code>BLITZ::50.00, OPEN::150.00</code>. Decimais devem ser com ponto.
+            </p>
 
-                    <div id="er-fields-container"></div>
+            <textarea name="er_form_fields" id="er_form_fields"
+                style="display:none;"><?php echo esc_textarea($fields_json); ?></textarea>
 
-                    <button type="button" class="button button-primary" id="er-add-field-btn">
-                        + Adicionar Novo Campo
-                    </button>
-                </div>
+            <div id="er-fields-container"></div>
 
-                <!-- Template para novo campo -->
-                <script type="text/html" id="tmpl-er-field">
-                    <div class="er-field-row" data-id="{{data.id}}">
-                        <div class="er-field-header">
-                            <strong>Campo</strong>
-                            <button type="button" class="button button-small er-remove-field-btn">Remover</button>
-                            <button type="button" class="button button-small er-move-up-btn">↑</button>
-                            <button type="button" class="button button-small er-move-down-btn">↓</button>
-                        </div>
-                        <div class="er-field-body">
-                            <div class="er-col">
-                                <label>Rótulo do Campo</label>
-                                <input type="text" class="er-input-label" value="{{data.label}}" placeholder="Ex: Nome Completo">
+            <button type="button" class="button button-primary" id="er-add-field-btn">
+                + Adicionar Novo Campo
+            </button>
+        </div>
+
+        <!-- Template para novo campo -->
+        <script type="text/html" id="tmpl-er-field">
+                            <div class="er-field-row" data-id="{{data.id}}">
+                                <div class="er-field-header">
+                                    <strong>Campo</strong>
+                                    <button type="button" class="button button-small er-remove-field-btn">Remover</button>
+                                    <button type="button" class="button button-small er-move-up-btn">↑</button>
+                                    <button type="button" class="button button-small er-move-down-btn">↓</button>
+                                </div>
+                                <div class="er-field-body">
+                                    <div class="er-col">
+                                        <label>Rótulo do Campo</label>
+                                        <input type="text" class="er-input-label" value="{{data.label}}" placeholder="Ex: Nome Completo">
+                                    </div>
+                                    <div class="er-col">
+                                        <label>Tipo</label>
+                                        <select class="er-input-type">
+                                            <option value="text" <# if(data.type=='text') print('selected'); #>>Texto</option>
+                                            <option value="email" <# if(data.type=='email') print('selected'); #>>E-mail</option>
+                                            <option value="tel" <# if(data.type=='tel') print('selected'); #>>Telefone</option>
+                                            <option value="number" <# if(data.type=='number') print('selected'); #>>Número</option>
+                                            <option value="select" <# if(data.type=='select') print('selected'); #>>Caixa de Seleção (Dropdown)</option>
+                                            <option value="radio" <# if(data.type=='radio') print('selected'); #>>Rádio (Única Escolha)</option>
+                                            <option value="checkbox" <# if(data.type=='checkbox') print('selected'); #>>Checkbox (Verdadeiro/Falso)</option>
+                                            <option value="checkbox_group" <# if(data.type=='checkbox_group') print('selected'); #>>Grupo de Checkbox (Múltipla Escolha)</option>
+                                            <option value="consent" <# if(data.type=='consent') print('selected'); #>>Termo de Consentimento</option>
+                                        </select>
+                                    </div>
+                                    <div class="er-col er-col-small">
+                                        <label>Obrigatório</label>
+                                        <input type="checkbox" class="er-input-required" value="1" <# if(data.required) print('checked'); #>>
+                                    </div>
+                                    <div class="er-col er-options-col <# if(['text','email','tel','number'].includes(data.type)) print('hidden'); #>">
+                                        <label>Opções (Separe por vírgula. Use Nome::Preco para valorizador)</label>
+                                        <input type="text" class="er-input-options" value="{{data.options}}" placeholder="Ex: Opção 1, Opção 2::50.00">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="er-col">
-                                <label>Tipo</label>
-                                <select class="er-input-type">
-                                    <option value="text" <# if(data.type=='text') print('selected'); #>>Texto</option>
-                                    <option value="email" <# if(data.type=='email') print('selected'); #>>E-mail</option>
-                                    <option value="tel" <# if(data.type=='tel') print('selected'); #>>Telefone</option>
-                                    <option value="number" <# if(data.type=='number') print('selected'); #>>Número</option>
-                                    <option value="select" <# if(data.type=='select') print('selected'); #>>Caixa de Seleção (Dropdown)</option>
-                                    <option value="radio" <# if(data.type=='radio') print('selected'); #>>Rádio (Única Escolha)</option>
-                                    <option value="checkbox" <# if(data.type=='checkbox') print('selected'); #>>Checkbox (Verdadeiro/Falso)</option>
-                                    <option value="checkbox_group" <# if(data.type=='checkbox_group') print('selected'); #>>Grupo de Checkbox (Múltipla Escolha)</option>
-                                    <option value="consent" <# if(data.type=='consent') print('selected'); #>>Termo de Consentimento</option>
-                                </select>
-                            </div>
-                            <div class="er-col er-col-small">
-                                <label>Obrigatório</label>
-                                <input type="checkbox" class="er-input-required" value="1" <# if(data.required) print('checked'); #>>
-                            </div>
-                            <div class="er-col er-options-col <# if(['text','email','tel','number'].includes(data.type)) print('hidden'); #>">
-                                <label>Opções (Separe por vírgula. Use Nome::Preco para valorizador)</label>
-                                <input type="text" class="er-input-options" value="{{data.options}}" placeholder="Ex: Opção 1, Opção 2::50.00">
-                            </div>
-                        </div>
-                    </div>
-                </script>
-                <?php
+                        </script>
+        <?php
     }
 
     public function save_data($post_id, $post)
@@ -163,7 +165,7 @@ class ER_Metabox
                         'options' => sanitize_text_field($f['options']),
                     );
                 }
-                update_post_meta($post_id, '_er_form_fields', wp_json_encode($sanitized_fields));
+                update_post_meta($post_id, '_er_form_fields', wp_json_encode($sanitized_fields, JSON_UNESCAPED_UNICODE));
             }
         }
     }
